@@ -191,6 +191,38 @@ services:
         - traefik.http.routers.${STACK_NAME?Variable not set}-frontend-http.rule=PathPrefix(`/`)
         - traefik.http.services.${STACK_NAME?Variable not set}-frontend.loadbalancer.server.port=80
 
+  jenkins:
+    image: diarmaid_jenkins:latest
+    build:
+      context: ./jenkins
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Dhudson.footerURL=http://yallalabs.com
+      - JENKINS_USER=diarmaid
+      - JENKINS_PASS=password
+    volumes:
+      - jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      traefik:
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints:
+          - node.role == worker
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sS http://localhost:8080/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    labels:
+      - traefik.port=8080
+      - traefik.port=50000
+      - traefik.frontend.rule=Host:jenkins.diarmaiddeburca.de
+      - traefik.docker.network=traefik
+      - traefik.frontend.whitelist.SourceRange=127.0.0.1
 volumes:
   app-db-data:
 
