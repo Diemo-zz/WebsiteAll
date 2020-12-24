@@ -1,0 +1,35 @@
+.nav-link {
+    background-color: black;
+    opacity: 100%;
+}
+
+.brand {
+    margin: 0;
+    padding: 0px;
+    color: blue;
+    opacity: 50%;
+    background-color: #61dafb;
+}
+
+.link {
+    padding: 5px;
+    color: white;
+}
+
+.nav-bar {
+    background-color: white;
+    height: 5%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+
+.nav-view {
+    height: 95%;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    top: 5%;
+    width: 100%
+
+}

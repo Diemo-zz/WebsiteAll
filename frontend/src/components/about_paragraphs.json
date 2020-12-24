@@ -1,0 +1,32 @@
+{
+  "paragraphs":
+[
+  {
+    "text": "My name is Diarmaid de Burca, and I was born in Dublin, Ireland, on the 3rd of July, 1988.",
+    "key": 1
+  },
+  {
+    "text": "I did my undergraduate degree in Physics and Applied Mathematics, completing it with a First Class Honours in 2010.",
+    "key": 2
+  },
+  {
+    "text": "I then worked on simulating emission from pulsars - completing my Doctorate in the study of Incoherent Synchrotron Radiation in High Magnetic Fields in September 2015.",
+    "key": 3
+  },
+  {
+    "text": "Upon finishing my doctorate, I moved to Edinburgh, where I worked on simulating animal breeding populations at the Roslin Institue",
+    "key": 4
+  },
+  {
+    "text": "After working in Edinburgh for 18 months, I moved to Berlin, where I have been working as a backend developer at Makersite.",
+    "key": 5
+  },
+  {
+    "text": "I am interested in Fortran, Python and React development.",
+    "key": 6
+  },
+  {
+    "text": "I started my journey into computer science with Fortran, when I was simulating emission from isolated neutron stars.   I inherited a embarressingly parallel simulation code which was written in Fortran90, and parallelised using MPI. Over the course of my PhD, I learnt (through necessity) how to program in Fortran 90, and how to program in parallel. Upon completion of my PhD, I knew that I did not want to remain in the field of astronomy. As such, I got a position where I was doing software development using Fortran.",
+    "key": 7
+  }
+]}
