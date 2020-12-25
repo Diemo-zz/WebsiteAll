@@ -224,6 +224,13 @@ services:
       - traefik.docker.network=traefik
       - traefik.frontend.whitelist.SourceRange=127.0.0.1
 volumes:
+  jenkins_data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/jenkinsdata"
+
   app-db-data:
 
 networks:

@@ -14,12 +14,6 @@ import {InstallingFortran} from "../Fortran/Components/InstallingFortran";
 import {TutorialPage} from "../Fortran/Components/TutorialPage";
 
 
-const FortranNotFound = () => {
-    return (<div>
-        404 Not Found
-    </div>)
-}
-
 const NotFound = () => {
     return (
         <div>
@@ -31,58 +25,96 @@ const NotFound = () => {
 export const Navigation = () => {
     const [is_fortran, setFortran] = useState(false)
 
-    const set_fortran_state = () => {
-        setFortran(!is_fortran)
+    const show_fortran = () => {
+        setFortran(true)
     }
 
-    const set_state = () => {
-        console.log("RAN SET STATE")
+    const show_main = () => {
         setFortran(false)
     }
-    const get_normal_navigation = () => (
-        <React.Fragment>
-            <div className="nav-bar">
+
+    const normal_navigation = [
+        {
+            "name": "Second Page",
+            "path": "/secondpage",
+            "id": "1",
+            "component": Secondpage
+        },
+        {
+            "name": "Contact",
+            "path": "/contact",
+            "id": "2",
+            "component": ContactPage
+        },
+        {
+            "name": "About",
+            "path": "/about",
+            "id": "3",
+            "component": About
+        },
+        {
+            "name": "Fortran Tutorial",
+            "path": "/fortran/home",
+            "id": "4",
+            "component": FortranPage,
+            "switch": show_fortran
+        },
+        {
+            "name": "Facestabbers",
+            "path": "/facestabbers",
+            "id": "5",
+            "component": FortranPage
+        }
+    ]
+
+    const get_navigation_bar = (list_of_navigation_items) => {
+        return (
+            <React.Fragment>
                 <Navbar className="nav-link">
-                    <Navbar.Brand as={Link} to="/" className="brand">Home</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/" className="brand" onClick={show_main}>Home</Navbar.Brand>
                     <NavbarCollapse>
-                        <Nav as={Link} to="/secondpage" className="link">SecondPage</Nav>
-                        <Nav as={Link} onClick ={set_fortran_state} to="/fortran/home" className="link">Fortran Tutorial</Nav>
-                        <Nav as={Link} to="/contact" className="link">Contact</Nav>
-                        <Nav as={Link} to="/about" className="link">About</Nav>
+                        {list_of_navigation_items.map((item) => {
+                            if (item.switch){
+                                return (<Nav as={Link} to={item.path} key={item.id} class="link" onClick={item.switch}>{item.name}</Nav> )
+                            }
+                            return (<Nav as={Link} to={item.path} key={item.id} class="link">{item.name}</Nav> )}
+                        )}
                     </NavbarCollapse>
                 </Navbar>
-            </div>
-            <div className="nav-view">
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route exact path='/secondpage' component={Secondpage}/>
-                    <Route exact path='/contact' component={ContactPage}/>
-                    <Route exact path='/about' component={About}/>
-                    <Route path={'/fortran'} component={FortranPage} />
-                    <Route render={NotFound} />
-                </Switch>
-            </div>
-        </React.Fragment>
-    )
+                <div className="nav-view">
+                    <Switch>
+                        <Route exact path={"/"} component={Home} />
+                        {list_of_navigation_items.map((item) => (<Route exact path={item.path} component={item.component} />))}
+                        <Route render={NotFound} />
+                    </Switch>
+                </div>
+            </React.Fragment>
+        )
+    }
 
-    const get_fortran_navigation = () => (
-        <div>
-              <Navbar className={"fortran-nav-bar"}>
-            <Nav as={Link} onClick={set_state} to={"/"} className={"fortran-link"}>Home</Nav>
-            <Nav as={Link} to={"/fortran/install"} className={"fortran-link"}>Installing Fortran</Nav>
-            <Nav as={Link} to={"/fortran/tutorial"} className={"fortran-link"}>Fortran Tutorial</Nav>
-        </Navbar>
-        <Switch>
-            <Route exact path={"/"} component={Home} />
-            <Route exact path={"/fortran/install"} component={InstallingFortran} />
-            <Route exact path={"/fortran/tutorial"} component={TutorialPage} />
-            <Route path={"/fortran"} component={FortranNotFound} />
-        </Switch>
-            </div>
-    )
+    const fortran_navigation = [
+        {
+            "name": "Introduction",
+            "path": "/fortran/home",
+            "id": "7",
+            "component": FortranPage
+        },
+        {
+            "name": "Installing Fortran",
+            "path": "/fortran/install",
+            "id": "8",
+            "component": InstallingFortran
+        },
+        {
+            "name": "Fortran Tutorial",
+            "path": "/fortran/tutorial",
+            "id": "9",
+            "component": TutorialPage
+        }
+    ]
 
     if (is_fortran) {
-        return get_fortran_navigation()
+        return get_navigation_bar(fortran_navigation)
     }
-    return get_normal_navigation()
+    return get_navigation_bar(normal_navigation)
 }
