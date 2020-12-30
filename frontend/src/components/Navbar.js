@@ -113,8 +113,17 @@ export const Navigation = () => {
         }
     ]
 
+    const no_navigation = [
+        {
+            "name": "Contact",
+            "path": "/contact",
+            "id": "2",
+            "component": ContactPage
+        },
+    ];
+
     if (is_fortran) {
-        return get_navigation_bar(fortran_navigation)
+        return get_navigation_bar(no_navigation)
     }
-    return get_navigation_bar(normal_navigation)
+    return get_navigation_bar(no_navigation)
 }

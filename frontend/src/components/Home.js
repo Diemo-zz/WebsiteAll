@@ -7,7 +7,7 @@ Welcome to my home page. You can use the links at the top to navigate around.
 
 This website is still under construction, and I am using it to learn how to do React.
 
-Don't be surprised if certain things don't work.
+If you are seeing this, then this is a placeholder website holding only my contact details. 
 `
 
 
@@ -15,7 +15,7 @@ export const Home = () => {
     return (
         <React.Fragment>
             <div>
-                <Header text="THIS IS THE HEADER TEXT"/>
+                <Header text="WELCOME. NOW GO AWAY"/>
                 <Paragraph text={homepage}/>
             </div>
         </React.Fragment>
