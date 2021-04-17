@@ -29,6 +29,9 @@ services:
       - traefik.http.services.${STACK_NAME?Variable not set}-traefik-public.loadbalancer.server.port=80
 
   run_fortran:
+    ports:
+    - 800:80
+    - 8000:8000
     #volumes:
     #- runfortran-volume:/all
 

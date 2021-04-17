@@ -7,4 +7,4 @@ RUN pip3 install -r requirements.txt
 COPY app /app
 WORKDIR /app
 ENTRYPOINT ["gunicorn"]
-CMD ["runfortran:app", "-k", "uvicorn.workers.UvicornWorker"]
+CMD ["runfortran:app", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:80"]
