@@ -37,6 +37,18 @@ services:
     entrypoint: ["uvicorn"]
     command: ["runfortran:app", "--reload", "--port", "80", "--host", "0.0.0.0"]
 
+  frontend:
+    build:
+      target: setup_app
+    entrypoint: ["npm"]
+    command: ["start"]
+    stdin_open: true
+    volumes:
+    - ./frontend/src:/app/src
+    - ./frontend/.development_environmental_variables:/app/.env
+    ports:
+    - 3000:3000
+
 networks:
   traefik-public:
     # For local dev, don't expect an external Traefik network

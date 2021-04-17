@@ -1,7 +1,6 @@
 import React from "react";
 import './FortranStyles.css'
 import {Header} from "./Header";
-import {Paragraph} from "../../../../../NextWebsite/frontend/myapp/src/Components/Paragraph";
 
 export const InstallingFortran = () => {
     const header = "Installing Fortran"
@@ -10,7 +9,6 @@ export const InstallingFortran = () => {
     return (
         <React.Fragment>
             <Header text={header}/>
-            <Paragraph text={text}/>
         </React.Fragment>
     )
 }

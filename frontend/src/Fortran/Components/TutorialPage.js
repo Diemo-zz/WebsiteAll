@@ -1,8 +1,6 @@
 import React, { useState} from "react";
 import {Header} from "./Header";
-import {Paragraph} from "../../../../../NextWebsite/frontend/myapp/src/Components/Paragraph";
 import {Column} from "./Column";
-import {Image} from "../../../../../NextWebsite/frontend/myapp/src/Components/Image";
 
 const text_as_json = [
     {
@@ -60,12 +58,6 @@ const CodeAndResults = () => {
 export const TutorialPage = () => {
     return (<React.Fragment>
         <Header text= "Tutorial Page" image_used={"https://apod.nasa.gov/apod/image/2005/ISS-Lighttrail-Reflection.jpg"}/>
-        <Paragraph text={"SOME TECZ"}/>
-        <Paragraph text={"SOME TECZ2"}/>
-        <Paragraph text={"SOME TECZ3"}/>
-        <CodeAndResults/>
-        <Paragraph text={"fdaklsfja"}/>
-        <Paragraph text={"more pare"}/>
         <CodeAndResults/>
 
     </React.Fragment>)

@@ -1,5 +1,4 @@
 import {Header} from "./Header";
-import {Paragraph} from "../../../../../NextWebsite/frontend/myapp/src/Components/Paragraph";
 import React from "react";
 
 const columnstyle = {
@@ -18,7 +17,6 @@ export const Column = ({text, heading, width = "100%"}) => {
     return (
         <div className={className} style={current_style}>
             <Header text={heading}/>
-            <Paragraph text={text}/>
         </div>
     )
 

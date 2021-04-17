@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './FortranStyles.css'
 
 const headerStyle = {
@@ -18,9 +18,13 @@ export const Header = ({text, image_used = "https://apod.nasa.gov/apod/image/200
     //console.log(used_style)
     const styleUsed = {...headerStyle, backgroundImage: "url(" + image_used + ")"}
     console.log(styleUsed)
+    console.log("LOGGING STUFF")
+    console.log("ANOTHER CHANGE")
+    console.log("THIRD CHANGE")
     return (
         <React.Fragment>
             <h1 className={className} style={styleUsed}>{text}</h1>
+            <div>TEST</div>
         </React.Fragment>
     )
 }

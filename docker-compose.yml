@@ -98,6 +98,16 @@ services:
     networks:
       - traefik-public
 
+  frontend:
+    image: 'frontend:latest'
+    build:
+      context: ./frontend
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.constraint-label-stack=`diarmaiddeburca-de`
+        - traefik.http.routers.diarmaiddeburca-frontend-http.rule=PathPrefix(`/`)
+        - traefik.http.services.diarmaiddeburca-frontend.loadbalancer.server.port=80
 networks:
   traefik-public:
     # Allow setting it to false for testing
