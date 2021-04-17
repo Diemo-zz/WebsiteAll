@@ -32,8 +32,10 @@ services:
     ports:
     - 800:80
     - 8000:8000
-    #volumes:
-    #- runfortran-volume:/all
+    volumes:
+    - ./FortranCompiler/app:/app
+    entrypoint: ["uvicorn"]
+    command: ["runfortran:app", "--reload", "--port", "80", "--host", "0.0.0.0"]
 
 networks:
   traefik-public:
@@ -41,10 +43,3 @@ networks:
     external: false
 
 
-volumes:
-  runfortran-volume:
-    driver: 'local'
-    driver_opts:
-      type: 'None'
-      o: 'bind'
-      device: './'
