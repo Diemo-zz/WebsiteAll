@@ -10,6 +10,7 @@ services:
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - traefik-public-certificates:/certificates
     command:
       # Enable Docker in Traefik, so that it reads labels from Docker services
       - --providers.docker
@@ -20,6 +21,11 @@ services:
       - --providers.docker.exposedbydefault=false
       # Enable Docker Swarm mode
       - --providers.docker.swarmmode
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
+      - --certificatesresolvers.le.acme.email=diarmaiddeburca@gmail.com
+      - --certificatesresolvers.le.acme.storage=/certificates/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
       # Enable the access log, with HTTP requests
       - --accesslog
       # Enable the Traefik log, for configurations and errors
@@ -96,3 +102,6 @@ networks:
   traefik-public:
     # Allow setting it to false for testing
     external: ${TRAEFIK_PUBLIC_NETWORK_IS_EXTERNAL-true}
+
+volumes:
+  traefik-public-certificate:
