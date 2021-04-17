@@ -1,5 +1,5 @@
 import {Header} from "./Header";
-import {Paragraph} from "./Paragraph";
+import {Paragraph} from "../../../../../NextWebsite/frontend/myapp/src/Components/Paragraph";
 import React from "react";
 
 const columnstyle = {

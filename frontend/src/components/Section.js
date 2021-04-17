@@ -1,5 +1,5 @@
 import React from "react";
-import {Paragraph} from "../Fortran/Components/Paragraph";
+import {Paragraph} from "../../../../NextWebsite/frontend/myapp/src/Components/Paragraph";
 import './Section.css'
 import {map} from "react-bootstrap/cjs/ElementChildren";
 import {Header} from "../Fortran/Components/Header";

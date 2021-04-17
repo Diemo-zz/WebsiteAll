@@ -1,8 +1,8 @@
 import React, { useState} from "react";
 import {Header} from "./Header";
-import {Paragraph} from "./Paragraph";
+import {Paragraph} from "../../../../../NextWebsite/frontend/myapp/src/Components/Paragraph";
 import {Column} from "./Column";
-import {Row} from "./Row";
+import {Image} from "../../../../../NextWebsite/frontend/myapp/src/Components/Image";
 
 const text_as_json = [
     {
