@@ -2,6 +2,9 @@ version: "3.3"
 services:
   proxy:
     image: traefik:v2.2
+    ports:
+    - 80:80
+    - 443:443
     networks:
       - ${TRAEFIK_PUBLIC_NETWORK?Variable not set}
       - default
@@ -71,7 +74,12 @@ services:
     build:
       context: ./FortranCompiler
       dockerfile: ./Dockerfile
-
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.rule=Host(`fortran.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.entrypoints=https
+        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.tls=true
 
 networks:
   traefik-public:
