@@ -6,7 +6,7 @@ services:
     - 80:80
     - 443:443
     networks:
-      - ${TRAEFIK_PUBLIC_NETWORK?Variable not set}
+      - traefik-public
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -15,7 +15,7 @@ services:
       - --providers.docker
       # Add a constraint to only use services with the label for this stack
       # from the env var TRAEFIK_TAG
-      - --providers.docker.constraints=Label(`traefik.constraint-label-stack`, `${TRAEFIK_TAG?Variable not set}`)
+      - --providers.docker.constraints=Label(`traefik.constraint-label-stack`, `diarmaiddeburca-de`)
       # Do not expose all Docker services, only the ones explicitly exposed
       - --providers.docker.exposedbydefault=false
       # Enable Docker Swarm mode
@@ -34,41 +34,40 @@ services:
         # Enable Traefik for this service, to make it available in the public network
         - traefik.enable=true
         # Use the traefik-public network (declared below)
-        - traefik.docker.network=${TRAEFIK_PUBLIC_NETWORK?Variable not set}
+        - traefik.docker.network=trafik-public
         # Use the custom label "traefik.constraint-label=traefik-public"
         # This public Traefik will only use services with this label
-        - traefik.constraint-label=${TRAEFIK_PUBLIC_TAG?Variable not set}
+        - traefik.constraint-label=traefik-public
         # traefik-http set up only to use the middleware to redirect to https
-        - traefik.http.middlewares.${STACK_NAME?Variable not set}-https-redirect.redirectscheme.scheme=https
-        - traefik.http.middlewares.${STACK_NAME?Variable not set}-https-redirect.redirectscheme.permanent=true
+        - traefik.http.middlewares.diarmaiddeburca-https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.diarmaiddeburca-https-redirect.redirectscheme.permanent=true
         # Handle host with and without "www" to redirect to only one of them
         # Uses environment variable DOMAIN
         # To disable www redirection remove the Host() you want to discard, here and
         # below for HTTPS
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-http.rule=Host(`${DOMAIN?Variable not set}`) || Host(`www.${DOMAIN?Variable not set}`)
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-http.entrypoints=http
+        - traefik.http.routers.${STACK_NAME?Variablasaet{STACK_NAME?Variable not set}-proxy-http.entrypoints=http
         # traefik-https the actual router using HTTPS
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.rule=Host(`${DOMAIN?Variable not set}`) || Host(`www.${DOMAIN?Variable not set}`)
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.entrypoints=https
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.tls=true
+        - traefik.http.routers.diarmaiddeburca-proxy-https.rule=Host(`diarmaiddeburca.de`) || Host(`www.diarmaiddeburca.de`)
+        - traefik.http.routers.diarmaiddeburca-proxy-https.entrypoints=https
+        - traefik.http.routers.diarmaiddeburca-proxy-https.tls=true
         # Use the "le" (Let's Encrypt) resolver created below
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.tls.certresolver=le
+        - traefik.http.routers.diarmaiddeburca-proxy-https.tls.certresolver=le
         # Define the port inside of the Docker service to use
-        - traefik.http.services.${STACK_NAME?Variable not set}-proxy.loadbalancer.server.port=80
+        - traefik.http.services.diarmaiddeburca-proxy.loadbalancer.server.port=80
         # Handle domain with and without "www" to redirect to only one
         # To disable www redirection remove the next line
-        - traefik.http.middlewares.${STACK_NAME?Variable not set}-www-redirect.redirectregex.regex=^https?://(www.)?(${DOMAIN?Variable not set})/(.*)
+        - traefik.http.middlewares.diarmaiddeburca-www-redirect.redirectregex.regex=^https?://(www.)?(diarmaiddeburca.de)/(.*)
         # Redirect a domain with www to non-www
         # To disable it remove the next line
-        - traefik.http.middlewares.${STACK_NAME?Variable not set}-www-redirect.redirectregex.replacement=https://${DOMAIN?Variable not set}/$${3}
+        - traefik.http.middlewares.diarmaiddeburca-www-redirect.redirectregex.replacement=https://diarmaiddeburca.de/$${3}
         # Redirect a domain without www to www
         # To enable it remove the previous line and uncomment the next
         # - traefik.http.middlewares.${STACK_NAME}-www-redirect.redirectregex.replacement=https://www.${DOMAIN}/$${3}
         # Middleware to redirect www, to disable it remove the next line 
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.middlewares=${STACK_NAME?Variable not set}-www-redirect
+        - traefik.http.routers.diarmaiddeburca-proxy-https.middlewares=diarmaiddeburca-www-redirect
         # Middleware to redirect www, and redirect HTTP to HTTPS
-        # to disable www redirection remove the section: ${STACK_NAME?Variable not set}-www-redirect,
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-http.middlewares=${STACK_NAME?Variable not set}-www-redirect,${STACK_NAME?Variable not set}-https-redirect
+        # to disable www redirection remove the section: diarmaiddeburca-www-redirect,
+        - traefik.http.routers.diarmaiddeburca-proxy-http.middlewares=diarmaiddeburca-www-redirect,diarmaiddeburca-https-redirect
 
   run_fortran:
     build:
@@ -77,9 +76,11 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.rule=Host(`fortran.${DOMAIN?Variable not set}`)
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.entrypoints=https
-        - traefik.http.routers.${STACK_NAME?Variable not set}-proxy-https.tls=true
+        - traefik.http.routers.-proxy-https.rule=Host(`fortran.diarmaiddeburca.de`)
+        - traefik.http.routers.diarmaiddeburca-proxy-https.entrypoints=https
+        - traefik.http.routers.diarmaiddeburca-proxy-https.tls=true
+    networks:
+
 
 networks:
   traefik-public:
