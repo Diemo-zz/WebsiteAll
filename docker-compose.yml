@@ -79,7 +79,6 @@ services:
         - traefik.http.routers.-proxy-https.rule=Host(`fortran.diarmaiddeburca.de`)
         - traefik.http.routers.diarmaiddeburca-proxy-https.entrypoints=https
         - traefik.http.routers.diarmaiddeburca-proxy-https.tls=true
-    networks:
 
 
 networks:
