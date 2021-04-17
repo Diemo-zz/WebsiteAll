@@ -104,4 +104,4 @@ networks:
     external: ${TRAEFIK_PUBLIC_NETWORK_IS_EXTERNAL-true}
 
 volumes:
-  traefik-public-certificate:
+  traefik-public-certificates:
